@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Laporan;
 use App\Models\Peminjaman;
 use App\Models\Stock;
 use App\Models\User;
@@ -22,9 +23,9 @@ class PeminjamanController extends Controller
     }
     public function create()
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $users = User::all();
         $items = Stock::where('dipinjam', 'N')->get();
         return view('peminjamans.create', compact('users', 'items'));
@@ -41,11 +42,11 @@ class PeminjamanController extends Controller
 
         // dd($request);exit;
         //create post
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $item = Stock::find($request->input('item'));
-        Peminjaman::create([
+        $peminjaman = Peminjaman::create([
             'user_id' => $request->user,
             'item_id' => $request->item,
             'tanggal_pinjam' => $request->tanggal_pinjam,
@@ -55,14 +56,18 @@ class PeminjamanController extends Controller
         ]);
         $item->dipinjam = 'Y';
         $item->save();
+        Laporan::create([
+            'item_id' => $peminjaman->id,
+            'item_type' => 'peminjaman',
+        ]);
         //redirect to index
         return redirect()->route('peminjamans.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
     public function edit(Peminjaman $peminjaman)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $users = User::all();
         $items = Stock::where('dipinjam', 'N')->get();
         $items->prepend($peminjaman->stock);
@@ -79,14 +84,13 @@ class PeminjamanController extends Controller
     public function update(Request $request, Peminjaman $peminjaman)
     {
         //validate form
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $this->validate($request, [
             'user',
             'tanggal_pinjam',
             'tanggal_pengembalian',
-            'item',
         ]);
         $peminjaman->stock->dipinjam = 'N';
         $peminjaman->stock->save();
@@ -95,7 +99,6 @@ class PeminjamanController extends Controller
             'user_id' => $request->user,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'keterangan_peminjaman' => $request->keterangan_peminjaman,
-            'item_id' => $request->item,
         ]);
         $peminjaman->stock->dipinjam = 'Y';
         $peminjaman->stock->save();
@@ -107,9 +110,9 @@ class PeminjamanController extends Controller
     //redirect to index
     public function destroy(Peminjaman $peminjaman)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
 
         //delete post
         $peminjaman->delete();

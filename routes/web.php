@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\DataPeminjamController;
 use App\Http\Controllers\DivisiController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -28,10 +28,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/pengembalians', \App\Http\Controllers\PengembalianController::class);
     Route::resource('/peminjamans', \App\Http\Controllers\PeminjamanController::class);
     Route::resource('/stocks', \App\Http\Controllers\StockController::class);
-    Route::resource('/pembelians', \App\Http\Controllers\PembelianController::class);
+    Route::resource('/vendors', \App\Http\Controllers\VendorController::class);
     Route::resource('/users', UserController::class)->only('create', 'destroy', 'index', 'store');
     Route::resource('/divisions', DivisiController::class)->only('create', 'destroy', 'index', 'store');
     Route::resource('/roles', RoleController::class)->only('create', 'destroy', 'index', 'store');
+    Route::resource('/laporans', LaporanController::class)->only('create', 'destroy', 'index', 'store');
+
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 });
 

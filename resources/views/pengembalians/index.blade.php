@@ -17,15 +17,13 @@
                       <div class="d-flex flex-row-reverse">
                         <a href="{{ route('pengembalians.create') }}" class="btn btn-outline-secondary mb-3 ml-2"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add</a>
                       </div>
-                        <table id="example1" class="table table-striped  table-responsive table-bordered table-hover dataTable dtr-inline" aria-describedby="example1">
+                        <table id="example1" class="table table-striped table-bordered table-hover dataTable dtr-inline" aria-describedby="example1">
                             <thead>
                               <tr class="btn-warning">
                                 <th class="text-center" scope="col">No</th>
-                                <th class="text-center" scope="col">Ip Address</th>
                                 <th class="text-center" scope="col">Nama Cabang</th>
                                 <th class="text-center" scope="col">Nama Komputer</th>
                                 <th class="text-center" scope="col">Tanggal Pengembalian</th>
-                                <th class="text-center" scope="col">Serial Number</th>
                                 <th class="text-center" scope="col">User</th>
                                 <th class="text-center" scope="col">Divisi</th>
                                 <th class="text-center" scope="col">Aksi</th>
@@ -34,12 +32,10 @@
                             <tbody>
                               @forelse ($pengembalians as $pengembalian)
                                 <tr>
-                                    <td class="text-center">{{  $pengembalian->id }}</td>
-                                    <td class="text-center">{!! $pengembalian->peminjaman->stock->ip_address !!}</td>
+                                    <td class="text-center">{{  $loop->iteration }}</td>
                                     <td class="text-center">{!! $pengembalian->peminjaman->stock->nama_cabang !!}</td>
                                     <td class="text-center">{!! $pengembalian->peminjaman->stock->nama_komputer !!}</td>
-                                    <td class="number-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($pengembalian->tanggal_pengembalian))->format('d/m/Y')}}</td>
-                                    <td class="text-center">{!! $pengembalian->peminjaman->stock->serial_number !!}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($pengembalian->tanggal_pengembalian))->format('d/m/Y')}}</td>
                                     <td class="text-center">{!! $pengembalian->peminjaman->user->name !!}</td>
                                     <td class="text-center">{!! $pengembalian->peminjaman->user->divisi->nama_divisi !!}</td>
                                     <td class="text-center">

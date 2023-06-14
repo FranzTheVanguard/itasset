@@ -12,22 +12,22 @@
             <div class="col-md-12">
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
-                        <form action="{{ route('pembelians.store') }}"  method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('vendors.store') }}"  method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label class="font-weight-bold">Nama Vendor</label>
-                                <input type="text" class="form-control @error('nama_vendor') is-invalid @enderror" name="nama_vendor" placeholder="Masukkan Nama Vendor">
+                                <input type="text" class="form-control @error('nama_vendor') is-invalid @enderror" name="nama_vendor" placeholder="Masukkan Nama Vendor" required>
 
                             <div class="form-group">
                                 <label class="font-weight-bold">Alamat Vendor</label>
-                                <input type="text" class="form-control @error('alamat_vendor') is-invalid @enderror" name="alamat_vendor" placeholder="Masukkan Alamat Vendor">
+                                <input type="text" class="form-control @error('alamat_vendor') is-invalid @enderror" name="alamat_vendor" placeholder="Masukkan Alamat Vendor" required>
 
                             <div class="form-group">
                                     <label class="font-weight-bold">Jenis</label>
-                                    <input type="text" class="form-control @error('jenis') is-invalid @enderror" name="jenis" placeholder="Masukkan Jenis">
+                                    <input type="text" class="form-control @error('jenis') is-invalid @enderror" name="jenis" placeholder="Masukkan Jenis" required>
                             <div class="form-group">
                                 <label class="font-weight-bold">Tanggal Pembelian</label>
-                                <input type="date" class="form-control @error('tanggal_pembelian') is-invalid @enderror" name="tanggal_pembelian" placeholder="Masukkan Tanggal Pembelian">
+                                <input type="date" class="form-control @error('tanggal_pembelian') is-invalid @enderror" name="tanggal_pembelian" placeholder="Masukkan Tanggal Pembelian" required>
                             
                                 @error('nama_vendor')
                                     <div class="alert alert-danger mt-2">

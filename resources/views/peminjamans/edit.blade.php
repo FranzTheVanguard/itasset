@@ -19,7 +19,7 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">User</label>
-                                <select name="user" class="form-control" id="user">
+                                <select required name="user" class="form-control" id="user">
                                     @foreach ($users as $user)
                                     <option value="{{ $user->id }}" {{ $user->id == old('user', $peminjaman->user_id) ? 'selected' : '' }}>
                                         {{ $user->name }}
@@ -28,22 +28,12 @@
                                 </select>
                             <div class="form-group">
                                 <label class="font-weight-bold">Tanggal Pinjam</label>
-                                <input type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror" name="tanggal_pinjam" value="{{ old('user', $peminjaman->tanggal_pinjam) }}">
+                                <input required type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror" name="tanggal_pinjam" value="{{ old('user', $peminjaman->tanggal_pinjam) }}">
                             
                             <div class="form-group">
                                 <label class="font-weight-bold">Keterangan Peminjaman</label>
-                                <input type="text" class="form-control @error('keterangan_peminjaman') is-invalid @enderror" name="keterangan_peminjaman" value="{{ old('user', $peminjaman->keterangan_peminjaman) }}">
+                                <input required type="text" class="form-control @error('keterangan_peminjaman') is-invalid @enderror" name="keterangan_peminjaman" value="{{ old('user', $peminjaman->keterangan_peminjaman) }}">
 
-                                <div class="form-group">
-                                    <label class="font-weight-bold">Item</label>
-                                    <select name="item" class="form-control" id="item">
-                                        @foreach ($items as $item)
-                                            <option value="{{ $item->id }}" {{ $item->id == old('item', $peminjaman->item_id) ? 'selected' : '' }}>
-                                                {{ $item->nama_komputer }} - {{ $item->serial_number }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    
                                 <div class="form-group">
                                 @error('user')
                                     <div class="alert alert-danger mt-2">
@@ -61,13 +51,6 @@
 
 
                             @error('tanggal_pengembalian')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            @error('serial_number')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>

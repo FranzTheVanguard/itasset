@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengembalian;
 use App\Exports\pengembaliansExport;
+use App\Models\Laporan;
 use App\Models\Peminjaman;
 use App\Models\User;
 use Maatwebsite\Excel\Facades\Excel;
@@ -26,9 +27,9 @@ class PengembalianController extends Controller
 
     public function create()
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $users = User::all();
         $peminjamans = Peminjaman::with('stock')->where('Status', '!=', 'Sudah Dikembalikan')->get();
         return view('pengembalians.create', compact('users', 'peminjamans'));
@@ -47,17 +48,23 @@ class PengembalianController extends Controller
      */
     public function store(Request $request)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
-        $peminjaman = Peminjaman::find($request->peminjaman);
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         // dd($peminjaman);
-        Pengembalian::create([
+        $pengembalian = Pengembalian::create([
             'peminjaman_id' => $request->peminjaman,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
         ]);
-        $peminjaman->status = 'Sudah Dikembalikan';
-        $peminjaman->save();
+        $pengembalian->peminjaman->status = 'Sudah Dikembalikan';
+        $pengembalian->peminjaman->save();
+        $pengembalian->peminjaman->stock->dipinjam = 'Y';
+        $pengembalian->peminjaman->stock->save();
+        
+        Laporan::create([
+            'item_id' => $pengembalian->id,
+            'item_type' => 'Pengembalian',
+        ]);
         //redirect to index
         return redirect()->route('pengembalians.index')->with(['success' => 'Data Berhasil Ditambahan!']);
     }
@@ -73,9 +80,9 @@ class PengembalianController extends Controller
      */
     public function update(Request $request, Pengembalian $pengembalian)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         //validate form
         $this->validate($request, [
             'ip_address',
@@ -109,9 +116,9 @@ class PengembalianController extends Controller
 
     public function destroy(Pengembalian $pengembalian)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if (!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
 
         //delete post
         $pengembalian->delete();

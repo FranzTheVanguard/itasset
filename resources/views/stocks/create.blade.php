@@ -18,14 +18,12 @@
                             @csrf
 
                             <div class="form-group">
-                                <label class="font-weight-bold">Ip Address</label>
-                                <input required type="text" class="form-control @error('ip_address') is-invalid @enderror"
-                                    name="ip_address" placeholder="Masukkan Ip Address">
 
                                 <div class="form-group">
                                     <label class="font-weight-bold">Nama Cabang</label>
-                                    <input required type="text" class="form-control @error('nama_cabang') is-invalid @enderror"
-                                        name="nama_cabang" placeholder="Masukkan Nama Cabang">
+                                    <input required type="text"
+                                        class="form-control @error('nama_cabang') is-invalid @enderror" name="nama_cabang"
+                                        placeholder="Masukkan Nama Cabang">
 
 
 
@@ -37,66 +35,57 @@
 
 
                                         <div class="form-group">
-                                            <label class="font-weight-bold">Serial Number</label>
-                                            <input required type="text"
-                                                class="form-control @error('serial_number') is-invalid @enderror"
-                                                name="serial_number" placeholder="Masukkan Serial Number">
+                                            <label class="font-weight-bold">Qty</label>
+                                            <input required type="number"
+                                                class="form-control @error('qty') is-invalid @enderror"
+                                                name="qty" placeholder="Qty">
 
-
-                                                
-
-                                                <!-- error message untuk nama_asset -->
-                                                @error('ip_address')
-                                                    <div class="alert alert-danger mt-2">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-
-                                            @error('nama_cabang')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
 
-                                        @error('nama_komputer')
+                                        @error('nama_cabang')
                                             <div class="alert alert-danger mt-2">
                                                 {{ $message }}
                                             </div>
                                         @enderror
                                     </div>
 
-                                    @error('serial_number')
+                                    @error('nama_komputer')
                                         <div class="alert alert-danger mt-2">
                                             {{ $message }}
                                         </div>
                                     @enderror
                                 </div>
 
-                                @error('user')
+                                @error('serial_number')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
                                 @enderror
                             </div>
 
-
-
-
-                            <div>
-                                <button type="submit" class="btn btn-outline-secondary m-1">SUBMIT</button>
-                                <button type="reset" class="btn btn-outline-danger m-1">DELETE</button>
-                            </div>
-
-                        </form>
+                            @error('user')
+                                <div class="alert alert-danger mt-2">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                     </div>
+
+
+
+
+                    <div>
+                        <button type="submit" class="btn btn-outline-secondary m-1">SUBMIT</button>
+                        <button type="reset" class="btn btn-outline-danger m-1">DELETE</button>
+                    </div>
+
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 
-    
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js"></script>
     <script>

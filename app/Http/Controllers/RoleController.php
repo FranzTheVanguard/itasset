@@ -17,17 +17,17 @@ class RoleController extends Controller
 
     public function create()
     {   
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         return view('role.create');
     }
 
     public function store(Request $request)
     {   
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $validatedData = $request->validate([
             'nama_role' => 'required',
         ]);
@@ -39,17 +39,17 @@ class RoleController extends Controller
 
     public function show(Role $role)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         return view('role.show', compact('role'));
     }
 
     public function destroy(Role $role)
     {   
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $role->delete();
 
         return redirect()->route('roles.index')->with('success', 'Role deleted successfully.');

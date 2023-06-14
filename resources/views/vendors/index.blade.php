@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Pembelian')
+@section('title', 'Vendor')
 
 @section('content_header')
-    <h1>Pembelian</h1>
+    <h1>Vendor</h1>
 @stop
 
 @section('content')
@@ -15,7 +15,7 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                       <div class="d-flex flex-row-reverse">
-                        <a href="{{ route('pembelians.create') }}" class="btn btn-outline-secondary mb-3"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add</a>
+                        <a href="{{ route('vendors.create') }}" class="btn btn-outline-secondary mb-3"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add</a>
                       </div>
                         <table id="example1" class="table table-bordered table-hover dataTable dtr-inline" aria-describedby="example1">
                             <thead>
@@ -30,18 +30,18 @@
                               </tr>
                             </thead>
                             <tbody>
-                              @forelse ($pembelians as $pembelian)
+                              @forelse ($vendors as $vendor)
                                 <tr>
-                                    <td class="text-center">{{ $pembelian->id }}</td>
-                                    <td class="text-center">{!! $pembelian->nama_vendor !!}</td>
-                                    <td class="text-center">{!! $pembelian->alamat_vendor !!}</td>
-                                    <td class="text-center">{!! $pembelian->jenis !!}</td>
-                                    <td class="text-center">{{ \Carbon\Carbon::createFromTimeStamp(strtotime($pembelian->tanggal_pembelian))->format('d/m/Y')}}</td>
+                                    <td class="text-center">{{ $vendor->id }}</td>
+                                    <td class="text-center">{!! $vendor->nama_vendor !!}</td>
+                                    <td class="text-center">{!! $vendor->alamat_vendor !!}</td>
+                                    <td class="text-center">{!! $vendor->jenis !!}</td>
+                                    <td class="text-center">{{ \Carbon\Carbon::parse($vendor->tanggal_pembelian)->format('d-m-Y')}}</td>
                                     <td class="text-center">
-                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pembelians.destroy', $pembelian->id) }}" method="POST">
+                                    <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('vendors.destroy', $vendor->id) }}" method="POST">
                                       <div class="d-flex my-auto">
                                         <div class="mr-2">
-                                            <a href="{{ route('pembelians.edit', $pembelian->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
+                                            <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
                                           </div>
                                           <div>
                                             @csrf
@@ -55,7 +55,7 @@
                                 </tr>
                               @empty
                                   <div class="alert alert-danger">
-                                      Data Pembelian Belum Tersedia.
+                                      Data Vendor Belum Tersedia.
                                   </div>
                               @endforelse
                             </tbody>

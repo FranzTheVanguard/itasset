@@ -19,7 +19,7 @@ return array(
     'App\\Http\\Controllers\\DivisiController' => $baseDir . '/app/Http/Controllers/DivisiController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\MonitoringPeminjamanController' => $baseDir . '/app/Http/Controllers/MonitoringPeminjamanController.php',
-    'App\\Http\\Controllers\\PembelianController' => $baseDir . '/app/Http/Controllers/PembelianController.php',
+    'App\\Http\\Controllers\\VendorController' => $baseDir . '/app/Http/Controllers/PembelianController.php',
     'App\\Http\\Controllers\\PeminjamanController' => $baseDir . '/app/Http/Controllers/PeminjamanController.php',
     'App\\Http\\Controllers\\PengembalianController' => $baseDir . '/app/Http/Controllers/PengembalianController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/RoleController.php',

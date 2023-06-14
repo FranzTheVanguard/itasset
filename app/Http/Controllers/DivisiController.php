@@ -24,9 +24,9 @@ class DivisiController extends Controller
         $validatedData = $request->validate([
             'nama_divisi' => 'required',
         ]);
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         Divisi::create($validatedData);
 
         return redirect()->route('divisions.index')->with('success', 'Divisi created successfully.');
@@ -34,17 +34,17 @@ class DivisiController extends Controller
 
     public function show(Divisi $divisi)
     {
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         return view('divisi.show', compact('divisi'));
     }
 
     public function destroy($divisi)
     {   
-        /** @var User|null $user */
-        $user = auth()->user();
-        if(!$user->isAdmin()) abort(403, 'unauthorized');
+        /** @var User|null $_user */
+        $_user = auth()->user();
+        if (!$_user->isAdmin()) abort(403, 'unauthorized');
         Divisi::find($divisi)->delete();
         return redirect()->route('divisions.index')->with('success', 'Divisi deleted successfully.');
     }

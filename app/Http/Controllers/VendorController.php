@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Stock;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
-class StockController extends Controller
+class VendorController extends Controller
 {
     /**
      * index
@@ -15,18 +15,17 @@ class StockController extends Controller
     public function index()
     {
 
+        $vendors = Vendor::all();
 
-        $stocks = Stock::all();
 
-
-        return view('stocks.index', compact('stocks'));
+        return view('vendors.index', compact('vendors'));
     }
     public function create()
     {
         /** @var User|null $_user */
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
-        return view('stocks.create');
+        return view('vendors.create');
     }
 
     /**
@@ -40,24 +39,22 @@ class StockController extends Controller
         /** @var User|null $_user */
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
-        
-        //create post
-        Stock::create([
-            'nama_cabang' => $request->nama_cabang,
-            'nama_komputer' => $request->nama_komputer,
-            'qty' => $request->qty,
-            'dipinjam' => 'N',
+        Vendor::create([
+            'nama_vendor' => $request->nama_vendor,
+            'alamat_vendor' => $request->alamat_vendor,
+            'jenis' => $request->jenis,
+            'tanggal_pembelian' => $request->tanggal_pembelian,
         ]);
 
         //redirect to index
-        return redirect()->route('stocks.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('vendors.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
-    public function edit(Stock $stock)
+    public function edit(Vendor $vendor)
     {
         /** @var User|null $_user */
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
-        return view('stocks.edit', compact('stock'));
+        return view('vendors.edit', compact('vendor'));
     }
 
     /**
@@ -67,39 +64,44 @@ class StockController extends Controller
      * @param  mixed $post
      * @return void
      */
-    public function update(Request $request, Stock $stock)
+    public function update(Request $request, Vendor $vendor)
     {
         //validate form
         /** @var User|null $_user */
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $this->validate($request, [
-            'nama_cabang',
-            'nama_komputer',
-            'qty',
+            'nama_vendor',
+            'alamat_vendor',
+            'jenis',
+            'tanggal_pembelian',
+
         ]);
 
-        $stock->update([
-            'nama_cabang' => $request->nama_cabang,
-            'nama_komputer' => $request->nama_komputer,
-            'qty' => $request->qty,
+
+        //update 
+        $vendor->update([
+            'nama_vendor' => $request->nama_vendor,
+            'alamat_vendor' => $request->alamat_vendor,
+            'jenis' => $request->jenis,
+            'tanggal_pembelian' => $request->tanggal_pembelian,
         ]);
 
-        return redirect()->route('stocks.index')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('vendors.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     //redirect to index
 
-    public function destroy(Stock $stock)
+    public function destroy(Vendor $vendor)
     {
         /** @var User|null $_user */
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
 
         //delete post
-        $stock->delete();
+        $vendor->delete();
 
         //redirect to index
-        return redirect()->route('stocks.index')->with(['success' => 'Data Berhasil Dihapus!']);
+        return redirect()->route('vendors.index')->with(['success' => 'Data Berhasil Dihapus!']);
     }
 }

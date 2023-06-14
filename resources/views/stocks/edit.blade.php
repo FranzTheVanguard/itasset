@@ -18,11 +18,6 @@
                             @method('PUT')
 
                             <div class="form-group">
-                                <label class="font-weight-bold">Ip Address</label>
-                                <input required type="text" class="form-control @error('ip_address') is-invalid @enderror"
-                                    name="ip_address" value="{{ old('ip_address', $stock->ip_address) }}"
-                                    placeholder="Masukkan Ip Address">
-
                                 <div class="form-group">
                                     <label class="font-weight-bold">Nama Cabang</label>
                                     <input required type="text" class="form-control @error('nama_cabang') is-invalid @enderror"
@@ -38,19 +33,13 @@
                                             placeholder="Masukkan Nama Komputer">
 
                                         <div class="form-group">
-                                            <label class="font-weight-bold">Serial Number</label>
-                                            <input required type="text"
-                                                class="form-control @error('serial_number') is-invalid @enderror"
-                                                name="serial_number"
-                                                value="{{ old('serial_number', $stock->serial_number) }}"
-                                                placeholder="Masukkan Serial Number">
+                                            <label class="font-weight-bold">Qty</label>
+                                            <input required type="number"
+                                                class="form-control @error('qty') is-invalid @enderror"
+                                                name="qty"
+                                                value="{{ old('qty', $stock->qty) }}"
+                                                placeholder="Masukkan Qty">
 
-                                            <!-- error message untuk content -->
-                                            @error('ip_address')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
 
                                         @error('nama_cabang')
@@ -67,9 +56,9 @@
                                     @enderror
                                 </div>
 
-                                @error('serial_number')
+                                @error('qty')
                                     <div class="alert alert-danger mt-2">
-                                        {{ $message }}
+                                        {{ $qty }}
                                     </div>
                                 @enderror
                             </div>

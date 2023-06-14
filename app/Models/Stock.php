@@ -23,5 +23,6 @@ class Stock extends Model
         'dipinjam',
         'item_id',
         'user_id',
+        'qty'
     ];
 }

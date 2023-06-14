@@ -25,10 +25,6 @@
                                         <option value={{$user->id}}>{{$user->name}}</option>
                                     @endforeach
                                 </select>
-                            <div class="form-group">
-                                <label class="font-weight-bold">Divisi</label>
-                                <input type="text" class="form-control @error('divisi') is-invalid @enderror" name="divisi" placeholder="Masukkan Divisi">
-
                         <div class="form-group">
                                 <label class="font-weight-bold">Tanggal Pinjam</label>
                                 <input type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror" name="tanggal_pinjam" placeholder="Masukkan Tanggal Pinjam">
@@ -41,7 +37,7 @@
                                     <label class="font-weight-bold">User</label>
                                     <select name="item" class="form-control" id="item">
                                         @foreach ($items as $item)
-                                            <option value={{$item->id}}>{{$item->nama_komputer}} - {{$item->serial_number}}</option>
+                                            <option value={{$item->id}}>{{$item->nama_komputer}}</option>
                                         @endforeach
                                     </select>
                                 <div class="form-group">
@@ -51,14 +47,6 @@
                                     </div>
                                 @enderror
                             </div>
-
-                            @error('divisi')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
 
                             @error('tanggal_pengembalian')
                                     <div class="alert alert-danger mt-2">

@@ -1,14 +1,12 @@
 @extends('adminlte::page')
 
-@section('title', 'Stock')
+@section('title', 'Laporan')
 
 @section('content_header')
-    <h1>Stock</h1>
+    <h1>Laporan</h1>
 @stop
 
 @section('content')
-
-
     <div class="container-fluid ">
         <div class="row">
             <div class="col-12">
@@ -24,45 +22,41 @@
                                 <tr class="btn-warning">
                                     <th class="text-center" scope="col">No</th>
                                     <th class="text-center" scope="col">Cabang</th>
-                                    <th class="text-center" scope="col">Nama Komputer</th>
-                                    <th class="text-center" scope="col">Qty</th>
-                                    <th class="text-center" scope="col">Tersedia</th>
-                                    <th class="text-center" scope="col">Aksi</th>
-                                    
-                                    
+                                    <th class="text-center" scope="col">Tipe</th>
+                                    <th class="text-center" scope="col">Item</th>
+                                    <th class="text-center" scope="col">Status</th>
+                                    <th class="text-center" scope="col">Tanggal</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($stocks as $stock)
+                                @forelse ($laporans as $laporan)
                                     <tr>
-
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        <td class="text-center">{!! $stock->nama_cabang !!}</td>
-                                        <td class="text-center">{!! $stock->nama_komputer !!}</td>
-                                        <td class="text-center">{!! $stock->qty !!}</td>
-                                        <td class="text-center"><i class="fas {{ $stock->dipinjam === 'Y' ? 'fa-times' : 'fa-check' }}"></i></td>
-                                        <td class="text-center">
-                                            <form onsubmit="return confirm('Apakah Anda Yakin ?');"
-                                                action="{{ route('stocks.destroy', $stock->id) }}" method="POST">
-                                                <div class="d-flex my-auto">
-                                                    <div class="mr-2">
-                                                        <a href="{{ route('stocks.edit', $stock->id) }}"
-                                                            class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
-                                                    </div>
-                                                    <div>
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger"><i
-                                                                class="fas fa-trash"></i></button>
-                                                    </div>
-                                                </div>
-                                            </form>
-
+                                        @if ($laporan->item_type == 'Peminjaman')
+                                            <td class="text-center">{!! $laporan->item->stock->nama_cabang !!}</td>
+                                        @else
+                                            <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_cabang !!}</td>
+                                        @endif
+                                        @if ($laporan->item_type == 'Peminjaman')
+                                            <td class="text-center">{!! $laporan->item->stock->nama_komputer !!}</td>
+                                        @else
+                                            <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_komputer !!}</td>
+                                        @endif
+                                        <td
+                                            class="text-center {{ $laporan->item_type == 'Peminjaman' ? 'bg-danger' : 'bg-success' }}">
+                                            {!! $laporan->item_type !!}
                                         </td>
+                                        <td class="text-center">{!! $laporan->item->nama_cabang !!}</td>
+                                        @if ($laporan->item_type == 'Peminjaman')
+                                            <td class="text-center">{!! $laporan->item->tanggal_pinjam !!}</td>
+                                        @else
+                                            <td class="text-center">{!! $laporan->item->tanggal_pengembalian !!}</td>
+                                        @endif
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">
-                                        Data Stock Belum Tersedia.
+                                        Data Laporan Belum Tersedia.
                                     </div>
                                 @endforelse
                             </tbody>
@@ -74,7 +68,7 @@
         </div>
     </div>
 
-    
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 

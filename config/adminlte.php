@@ -320,8 +320,8 @@ return [
         ],
 
         [
-            'text'        => 'Pembelian',
-            'url'         => 'pembelians',
+            'text'        => 'Vendor',
+            'url'         => 'vendors',
             'icon'        => 'fas fa-truck',
         ],
         [
@@ -338,6 +338,11 @@ return [
             'text'        => 'Role',
             'url'         => 'roles',
             'icon'        => 'fas fa-user-shield',
+        ],
+        [
+            'text'        => 'Laporan',
+            'url'         => 'laporans',
+            'icon'        => 'fas fa-file',
         ],
 
 
