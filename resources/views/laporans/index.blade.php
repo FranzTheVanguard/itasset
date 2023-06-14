@@ -35,22 +35,20 @@
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         @if ($laporan->item_type == 'Peminjaman')
                                             <td class="text-center">{!! $laporan->item->stock->nama_cabang !!}</td>
-                                        @else
-                                            <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_cabang !!}</td>
-                                        @endif
-                                        @if ($laporan->item_type == 'Peminjaman')
                                             <td class="text-center">{!! $laporan->item->stock->nama_komputer !!}</td>
                                         @else
+                                            <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_cabang !!}</td>
                                             <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_komputer !!}</td>
                                         @endif
                                         <td
                                             class="text-center {{ $laporan->item_type == 'Peminjaman' ? 'bg-danger' : 'bg-success' }}">
                                             {!! $laporan->item_type !!}
                                         </td>
-                                        <td class="text-center">{!! $laporan->item->nama_cabang !!}</td>
                                         @if ($laporan->item_type == 'Peminjaman')
+                                            <td class="text-center">{!! $laporan->item->status !!}</td>
                                             <td class="text-center">{!! $laporan->item->tanggal_pinjam !!}</td>
                                         @else
+                                            <td class="text-center">{!! $laporan->item->peminjaman->status !!}</td>
                                             <td class="text-center">{!! $laporan->item->tanggal_pengembalian !!}</td>
                                         @endif
                                     </tr>

@@ -3,6 +3,7 @@
 namespace Illuminate\Foundation\Auth;
 
 use App\Models\Divisi;
+use GuzzleHttp\Promise\Create;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
