@@ -49,7 +49,10 @@
                                             <td class="text-center">{!! $laporan->item->tanggal_pinjam !!}</td>
                                         @else
                                             <td class="text-center">{!! $laporan->item->peminjaman->status !!}</td>
-                                            <td class="text-center">{!! $laporan->item->tanggal_pengembalian !!}</td>
+                                            @php
+                                                $pengembalian = $pengembalians->where('peminjaman_id', $laporan->item_id)->first();
+                                            @endphp
+                                            <td class="text-center">{!! $pengembalian->tanggal_pengembalian !!}</td>
                                         @endif
                                     </tr>
                                 @empty
