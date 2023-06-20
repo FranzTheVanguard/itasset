@@ -3,6 +3,7 @@
 namespace Illuminate\Foundation\Auth;
 
 use App\Models\Divisi;
+use App\Models\Role;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,8 @@ trait RegistersUsers
     public function showRegistrationForm()
     {   
         $divisi = Divisi::all();
-        return view('auth.register', compact('divisi'));
+        $role = Role::all();
+        return view('auth.register', compact('divisi', 'role'));
     }
 
     /**
@@ -34,7 +36,7 @@ trait RegistersUsers
     {
         $this->validator($request->all())->validate();
         
-        if($request->input('role') == 'admin'){
+        if($request->input('role_id') == '1'){
             if($request->input('admin_pass') == env('ADMIN_SECRET')){
                 
             }

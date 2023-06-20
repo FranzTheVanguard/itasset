@@ -18,9 +18,10 @@
     <form action="{{ $register_url }}" method="post">
         @csrf
         <div class="input-group mb-3">
-            <select name="role" class="form-control" id="">
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
+            <select name="role_id" class="form-control" id="">
+                @foreach ($role as $r)
+                    <option value={{$r->id}}>{{$r->nama_role}}</option>
+                @endforeach
             </select>
         </div>
         {{-- Name field --}}
@@ -109,7 +110,7 @@
             </div>
         </div>
         <div class="input-group mb-3">
-            <select name="role" class="form-control" id="">
+            <select name="divisi_id" class="form-control" id="">
                 @foreach ($divisi as $d)
                     <option value={{$d->id}}>{{$d->nama_divisi}}</option>
                 @endforeach
