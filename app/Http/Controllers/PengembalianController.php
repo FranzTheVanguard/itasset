@@ -60,9 +60,9 @@ class PengembalianController extends Controller
         $pengembalian->peminjaman->save();
         $pengembalian->peminjaman->stock->dipinjam = 'Y';
         $pengembalian->peminjaman->stock->save();
-        
+
         Laporan::create([
-            'item_id' => $pengembalian->id,
+            'item_id' => $pengembalian->peminjaman->id,
             'item_type' => 'Pengembalian',
         ]);
         //redirect to index
