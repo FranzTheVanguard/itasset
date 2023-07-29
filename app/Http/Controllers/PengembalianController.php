@@ -58,7 +58,7 @@ class PengembalianController extends Controller
         ]);
         $pengembalian->peminjaman->status = 'Sudah Dikembalikan';
         $pengembalian->peminjaman->save();
-        $pengembalian->peminjaman->stock->dipinjam = 'Y';
+        $pengembalian->peminjaman->stock->dipinjam = 'N';
         $pengembalian->peminjaman->stock->save();
 
         Laporan::create([

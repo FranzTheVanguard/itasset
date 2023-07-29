@@ -33,27 +33,14 @@
                                 @forelse ($laporans as $laporan)
                                     <tr>
                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                        @if ($laporan->item_type == 'Peminjaman')
-                                            <td class="text-center">{!! $laporan->item->stock->nama_cabang !!}</td>
-                                            <td class="text-center">{!! $laporan->item->stock->nama_komputer !!}</td>
-                                        @else
-                                            <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_cabang !!}</td>
-                                            <td class="text-center">{!! $laporan->item->peminjaman->stock->nama_komputer !!}</td>
-                                        @endif
+                                        <td class="text-center">{!! $laporan->item->stock->nama_cabang !!}</td>
+                                        <td class="text-center">{!! $laporan->item->stock->nama_komputer !!}</td>
                                         <td
                                             class="text-center {{ $laporan->item_type == 'Peminjaman' ? 'bg-danger' : 'bg-success' }}">
                                             {!! $laporan->item_type !!}
                                         </td>
-                                        @if ($laporan->item_type == 'Peminjaman')
-                                            <td class="text-center">{!! $laporan->item->status !!}</td>
-                                            <td class="text-center">{!! $laporan->item->tanggal_pinjam !!}</td>
-                                        @else
-                                            <td class="text-center">{!! $laporan->item->peminjaman->status !!}</td>
-                                            @php
-                                                $pengembalian = $pengembalians->where('peminjaman_id', $laporan->item_id)->first();
-                                            @endphp
-                                            <td class="text-center">{!! $pengembalian->tanggal_pengembalian !!}</td>
-                                        @endif
+                                        <td class="text-center">{!! $laporan->item->status !!}</td>
+                                        <td class="text-center">{!! $laporan->item->tanggal_pinjam !!}</td>
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">

@@ -58,7 +58,7 @@ class PeminjamanController extends Controller
         $item->save();
         Laporan::create([
             'item_id' => $peminjaman->id,
-            'item_type' => 'peminjaman',
+            'item_type' => 'Peminjaman',
         ]);
         //redirect to index
         return redirect()->route('peminjamans.index')->with(['success' => 'Data Berhasil Disimpan!']);
