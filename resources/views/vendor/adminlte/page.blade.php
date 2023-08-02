@@ -12,8 +12,9 @@
 @section('body_data', $layoutHelper->makeBodyData())
 
 @section('body')
-    <div class="wrapper">
 
+    <div class="wrapper">
+        
         {{-- Preloader Animation --}}
         @if($layoutHelper->isPreloaderEnabled())
             @include('adminlte::partials.common.preloader')
@@ -32,6 +33,7 @@
         @endif
         
         {{-- Content Wrapper --}}
+        
         @empty($iFrameEnabled)
             @include('adminlte::partials.cwrapper.cwrapper-default')
         @else
@@ -47,7 +49,7 @@
         @if(config('adminlte.right_sidebar'))
             @include('adminlte::partials.sidebar.right-sidebar')
         @endif
-
+        
     </div>
 @stop
 

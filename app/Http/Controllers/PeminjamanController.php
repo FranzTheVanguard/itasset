@@ -112,10 +112,13 @@ class PeminjamanController extends Controller
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
 
         //delete post
-        if($peminjaman->pengembalian->laporan) $peminjaman->pengembalian->laporan->delete();
-        if($peminjaman->pengembalian) $peminjaman->pengembalian->delete();
-        if($peminjaman->laporan) $peminjaman->laporan->delete();
+        if ($peminjaman->pengembalian) {
+            optional($peminjaman->pengembalian->laporan)->delete();
+            $peminjaman->pengembalian->delete();
+        }
+        optional($peminjaman->laporan)->delete();
         $peminjaman->delete();
+        
 
         //redirect to index
         return redirect()->route('peminjamans.index')->with(['success' => 'Data Berhasil Dihapus!']);
