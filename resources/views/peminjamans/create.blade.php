@@ -20,63 +20,37 @@
 
                             <div class="form-group">
                                 <label class="font-weight-bold">User</label>
-                                <select name="user" class="form-control" id="user">
+                                <select required name="user" class="form-control" id="user">
                                     @foreach ($users as $user)
                                         <option value={{ $user->id }}>{{ $user->name }}</option>
                                     @endforeach
                                 </select>
                                 <div class="form-group">
                                     <label class="font-weight-bold">Tanggal Pinjam</label>
-                                    <input type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror"
+                                    <input required type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror"
                                         name="tanggal_pinjam" placeholder="Masukkan Tanggal Pinjam">
 
                                     <div class="form-group">
                                         <label class="font-weight-bold">Keterangan Peminjaman</label>
-                                        <input type="text"
+                                        <input required type="text"
                                             class="form-control @error('keterangan_peminjaman') is-invalid @enderror"
                                             name="keterangan_peminjaman" placeholder="Masukkan Keterangan Peminjaman">
 
                                         <div class="form-group">
                                             <label class="font-weight-bold">Item</label>
-                                            <select name="item" class="form-control" id="item">
+                                            <select required name="item" class="form-control" id="item">
                                                 @foreach ($items as $item)
                                                     <option value={{ $item->id }}>{{ $item->nama_komputer }}</option>
                                                 @endforeach
                                             </select>
-                                            <div class="form-group">
-                                                @error('user')
-                                                    <div class="alert alert-danger mt-2">
-                                                        {{ $message }}
-                                                    </div>
-                                                @enderror
-                                            </div>
-
-                                            @error('tanggal_pengembalian')
-                                                <div class="alert alert-danger mt-2">
-                                                    {{ $message }}
-                                                </div>
-                                            @enderror
                                         </div>
-
-                                        @error('serial_number')
-                                            <div class="alert alert-danger mt-2">
-                                                {{ $message }}
-                                            </div>
-                                        @enderror
+                                        <div class="form-group">
+                                            <label class="font-weight-bold">Jumlah Pinjam</label>
+                                            <input required type="number" class="form-control" id="amount"
+                                                name="amount">
+                                        </div>
                                     </div>
-
-                                    @error('detail')
-                                        <div class="alert alert-danger mt-2">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
                                 </div>
-
-                                @error('status')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
                             </div>
 
                             <button type="submit" class="btn btn-outline-secondary">SUBMIT</button>

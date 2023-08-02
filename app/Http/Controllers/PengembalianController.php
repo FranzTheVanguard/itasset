@@ -31,7 +31,7 @@ class PengembalianController extends Controller
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $users = User::all();
-        $peminjamans = Peminjaman::with('stock')->where('Status', '!=', 'Sudah Dikembalikan')->get();
+        $peminjamans = Peminjaman::with('stock')->whereDoesntHave('pengembalian')->get();
         return view('pengembalians.create', compact('users', 'peminjamans'));
     }
     public function show()
@@ -56,9 +56,8 @@ class PengembalianController extends Controller
             'peminjaman_id' => $request->peminjaman,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
         ]);
-        $pengembalian->peminjaman->status = 'Sudah Dikembalikan';
         $pengembalian->peminjaman->save();
-        $pengembalian->peminjaman->stock->dipinjam = 'N';
+        $pengembalian->peminjaman->stock->qty = $pengembalian->peminjaman->stock->qty + $pengembalian->peminjaman->amount;
         $pengembalian->peminjaman->stock->save();
 
         Laporan::create([
@@ -66,7 +65,7 @@ class PengembalianController extends Controller
             'item_type' => 'Pengembalian',
         ]);
         //redirect to index
-        return redirect()->route('pengembalians.index')->with(['success' => 'Data Berhasil Ditambahan!']);
+        return redirect()->route('pengembalians.index')->with(['success' => 'Data Berhasil Ditambahkan!']);
     }
 
 
@@ -121,6 +120,7 @@ class PengembalianController extends Controller
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
 
         //delete post
+        if($pengembalian->laporan) $pengembalian->laporan->delete();
         $pengembalian->delete();
 
         //redirect to index

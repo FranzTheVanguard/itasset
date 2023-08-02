@@ -16,13 +16,14 @@ class Stock extends Model
      * @var array
      */
     protected $fillable = [
-        'ip_address',
         'nama_cabang',
         'nama_komputer',
-        'serial_number',
-        'dipinjam',
-        'item_id',
-        'user_id',
-        'qty'
+        'qty',
+        'ori_qty'
     ];
+
+    public function peminjaman() {
+        return $this->hasMany(Peminjaman::class, 'item_id');
+    }
+
 }

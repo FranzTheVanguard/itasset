@@ -35,7 +35,7 @@
                                     <td class="text-center">{!! $monitoringpeminjaman->divisi !!}</td>
                                     <td class="text-center">
                                     <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('monitoringpeminjamans.destroy', $monitoringpeminjaman->id) }}" method="POST">
-                                      <div class="d-flex my-auto">
+                                      <div class="d-flex justify-content-center">
                                         <div class="mr-2">
                                             <a href="{{ route('monitoringpeminjamans.edit', $monitoringpeminjaman->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
                                           </div>

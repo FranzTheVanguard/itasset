@@ -27,7 +27,7 @@ class PeminjamanController extends Controller
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $users = User::all();
-        $items = Stock::where('dipinjam', 'N')->get();
+        $items = Stock::where('qty', '>',0)->get();
         return view('peminjamans.create', compact('users', 'items'));
     }
 
@@ -46,15 +46,15 @@ class PeminjamanController extends Controller
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $item = Stock::find($request->input('item'));
+        if($request->amount > $item->qty) return redirect()->route('peminjamans.create')->with(['error' => 'Jumlah pinjaman terlalu banyak!']);
         $peminjaman = Peminjaman::create([
             'user_id' => $request->user,
             'item_id' => $request->item,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'keterangan_peminjaman' => $request->keterangan_peminjaman,
-            'serial_number' => $item->serial_number,
-            'status' => 'Dipinjam',
+            'amount' => $request->amount,
         ]);
-        $item->dipinjam = 'Y';
+        $item->qty = $item->qty - $request->amount;
         $item->save();
         Laporan::create([
             'item_id' => $peminjaman->id,
@@ -69,8 +69,8 @@ class PeminjamanController extends Controller
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
         $users = User::all();
-        $items = Stock::where('dipinjam', 'N')->get();
-        $items->prepend($peminjaman->stock);
+        $items = Stock::where('qty', '>',0)->get();
+        // $items->prepend($peminjaman->stock);
         return view('peminjamans.edit', compact('peminjaman', 'users', 'items'));
     }
 
@@ -92,18 +92,15 @@ class PeminjamanController extends Controller
             'tanggal_pinjam',
             'tanggal_pengembalian',
         ]);
-        $peminjaman->stock->dipinjam = 'N';
-        $peminjaman->stock->save();
         //update 
+        $peminjaman->stock->qty = $peminjaman->stock->qty + $peminjaman->amount - $request->amount;
+        $peminjaman->stock->save();
         $peminjaman->update([
             'user_id' => $request->user,
             'tanggal_pinjam' => $request->tanggal_pinjam,
             'keterangan_peminjaman' => $request->keterangan_peminjaman,
+            'amount' => $request->amount,
         ]);
-        $peminjaman->stock->dipinjam = 'Y';
-        $peminjaman->stock->save();
-
-
         return redirect()->route('peminjamans.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
@@ -115,6 +112,9 @@ class PeminjamanController extends Controller
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
 
         //delete post
+        if($peminjaman->pengembalian->laporan) $peminjaman->pengembalian->laporan->delete();
+        if($peminjaman->pengembalian) $peminjaman->pengembalian->delete();
+        if($peminjaman->laporan) $peminjaman->laporan->delete();
         $peminjaman->delete();
 
         //redirect to index

@@ -28,8 +28,9 @@
                                     <th class="text-center" scope="col">Tanggal Pinjam</th>
                                     <th class="text-center" scope="col">Keterangan Peminjaman</th>
                                     <th class="text-center" scope="col">Nama Komputer</th>
-                                    <th class="text-center" scope="col">Status</th>
+                                    <th class="text-center" scope="col">Jumlah</th>
                                     <th class="text-center" scope="col">Aksi</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -43,11 +44,11 @@
                                         </td>
                                         <td class="text-center">{!! $peminjaman->keterangan_peminjaman !!}</td>
                                         <td class="text-center">{!! $peminjaman->stock->nama_komputer !!}</td>
-                                        <td class="text-center">{!! $peminjaman->status !!}</td>
+                                        <td class="text-center">{!! $peminjaman->amount !!}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('peminjamans.destroy', $peminjaman->id) }}" method="POST">
-                                                <div class="d-flex my-auto">
+                                                <div class="d-flex justify-content-center">
                                                     <div class="mr-2">
                                                         <a href="{{ route('peminjamans.edit', $peminjaman->id) }}"
                                                             class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>

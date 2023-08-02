@@ -39,7 +39,7 @@
                                     <td class="text-center">{{ \Carbon\Carbon::parse($vendor->tanggal_pembelian)->format('d-m-Y')}}</td>
                                     <td class="text-center">
                                     <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('vendors.destroy', $vendor->id) }}" method="POST">
-                                      <div class="d-flex my-auto">
+                                      <div class="d-flex justify-content-center">
                                         <div class="mr-2">
                                             <a href="{{ route('vendors.edit', $vendor->id) }}" class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>
                                           </div>

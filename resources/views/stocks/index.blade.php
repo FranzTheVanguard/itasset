@@ -39,12 +39,12 @@
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center">{!! $stock->nama_cabang !!}</td>
                                         <td class="text-center">{!! $stock->nama_komputer !!}</td>
-                                        <td class="text-center">{!! $stock->qty !!}</td>
-                                        <td class="text-center"><i class="fas {{ $stock->dipinjam === 'Y' ? 'fa-times' : 'fa-check' }}"></i></td>
+                                        <td class="text-center">{!! $stock->ori_qty !!}</td>
+                                        <td class="text-center">{{$stock->qty}}</td>
                                         <td class="text-center">
                                             <form onsubmit="return confirm('Apakah Anda Yakin ?');"
                                                 action="{{ route('stocks.destroy', $stock->id) }}" method="POST">
-                                                <div class="d-flex my-auto">
+                                                <div class="d-flex justify-content-center">
                                                     <div class="mr-2">
                                                         <a href="{{ route('stocks.edit', $stock->id) }}"
                                                             class="btn btn-sm btn-primary"><i class="fas fa-pen"></i></a>

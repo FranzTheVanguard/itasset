@@ -40,7 +40,7 @@
                                     <td class="text-center">{!! $pengembalian->peminjaman->user->divisi->nama_divisi !!}</td>
                                     <td class="text-center">
                                     <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('pengembalians.destroy', $pengembalian->id) }}" method="POST">
-                                      <div class="d-flex my-auto">
+                                      <div class="d-flex justify-content-center">
                                           <div>
                                             @csrf
                                             @method('DELETE')

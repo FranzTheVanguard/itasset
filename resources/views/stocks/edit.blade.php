@@ -11,6 +11,7 @@
     <div class="container mt-5 mb-5">
         <div class="row">
             <div class="col-md-12">
+                <strong>{{@session('error')}}</strong> 
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <form action="{{ route('stocks.update', $stock->id) }}" method="POST" enctype="multipart/form-data">
@@ -33,12 +34,21 @@
                                             placeholder="Masukkan Nama Komputer">
 
                                         <div class="form-group">
-                                            <label class="font-weight-bold">Qty</label>
+                                            <label class="font-weight-bold">Qty Maks</label>
                                             <input required type="number"
                                                 class="form-control @error('qty') is-invalid @enderror"
-                                                name="qty"
+                                                name="ori_qty" type="number"
+                                                value="{{ old('qty', $stock->ori_qty) }}"
+                                                placeholder="Masukkan Qty Max">
+
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="font-weight-bold">Qty Sekarang</label>
+                                            <input required type="number"
+                                                class="form-control @error('qty') is-invalid @enderror"
+                                                name="qty" type="number"
                                                 value="{{ old('qty', $stock->qty) }}"
-                                                placeholder="Masukkan Qty">
+                                                placeholder="Masukkan Qty Sekarang">
 
                                         </div>
 

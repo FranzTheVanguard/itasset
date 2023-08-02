@@ -46,7 +46,7 @@ class StockController extends Controller
             'nama_cabang' => $request->nama_cabang,
             'nama_komputer' => $request->nama_komputer,
             'qty' => $request->qty,
-            'dipinjam' => 'N',
+            'ori_qty' => $request->qty,
         ]);
 
         //redirect to index
@@ -77,12 +77,18 @@ class StockController extends Controller
             'nama_cabang',
             'nama_komputer',
             'qty',
+            'ori_qty'
         ]);
-
+        // dd($stock->peminjaman->sum('amount'));
+        if($stock->peminjaman->sum('amount') > $request->qty || $stock->peminjaman->sum('amount') > $request->ori_qty || $request->qty > $request->ori_qty){
+            return redirect()->route('stocks.edit')->with(['error' => 'Qty tidak valid!']);
+        }
         $stock->update([
             'nama_cabang' => $request->nama_cabang,
             'nama_komputer' => $request->nama_komputer,
             'qty' => $request->qty,
+            'ori_qty' => $request->ori_qty,
+
         ]);
 
         return redirect()->route('stocks.index')->with(['success' => 'Data Berhasil Disimpan!']);

@@ -22,8 +22,7 @@ class Peminjaman extends Model
         'divisi',
         'tanggal_pinjam',
         'keterangan_peminjaman',
-        'status',
-
+        'amount'
     ];
 
     public function user(): BelongsTo

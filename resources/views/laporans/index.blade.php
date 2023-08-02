@@ -13,8 +13,7 @@
                 <div class="card border-0 shadow rounded">
                     <div class="card-body">
                         <div class="d-flex flex-row-reverse">
-                            <a href="{{ route('stocks.create') }}" class="btn btn-outline-secondary mb-3"><i
-                                    class="fas fa-plus"></i>&nbsp;&nbsp;Add</a>
+                            
                         </div>
                         <table id="example1" class="table table-bordered table-hover dataTable dtr-inline"
                             aria-describedby="example1">
@@ -24,7 +23,7 @@
                                     <th class="text-center" scope="col">Cabang</th>
                                     <th class="text-center" scope="col">Tipe</th>
                                     <th class="text-center" scope="col">Item</th>
-                                    <th class="text-center" scope="col">Status</th>
+                                    <th class="text-center" scope="col">Jumlah Pinjam</th>
                                     <th class="text-center" scope="col">Tanggal</th>
 
                                 </tr>
@@ -39,8 +38,8 @@
                                             class="text-center {{ $laporan->item_type == 'Peminjaman' ? 'bg-danger' : 'bg-success' }}">
                                             {!! $laporan->item_type !!}
                                         </td>
-                                        <td class="text-center">{!! $laporan->item->status !!}</td>
-                                        <td class="text-center">{!! $laporan->item->tanggal_pinjam !!}</td>
+                                        <td class="text-center">{!! $laporan->item->amount !!}</td>
+                                        <td class="text-center">{!! date('Y-m-d',strtotime($laporan->item->tanggal_pinjam)) !!}</td>
                                     </tr>
                                 @empty
                                     <div class="alert alert-danger">

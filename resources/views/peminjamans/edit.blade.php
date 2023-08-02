@@ -28,21 +28,13 @@
                                 </select>
                             <div class="form-group">
                                 <label class="font-weight-bold">Tanggal Pinjam</label>
-                                <input required type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror" name="tanggal_pinjam" value="{{ old('user', $peminjaman->tanggal_pinjam) }}">
-                            
+                                <input required type="date" class="form-control @error('tanggal_pinjam') is-invalid @enderror" name="tanggal_pinjam" value="{{ old('tanggal_pinjam', date('Y-m-d', strtotime($peminjaman->tanggal_pinjam))) }}">
                             <div class="form-group">
                                 <label class="font-weight-bold">Keterangan Peminjaman</label>
-                                <input required type="text" class="form-control @error('keterangan_peminjaman') is-invalid @enderror" name="keterangan_peminjaman" value="{{ old('user', $peminjaman->keterangan_peminjaman) }}">
-
+                                <input required type="text" class="form-control @error('keterangan_peminjaman') is-invalid @enderror" name="keterangan_peminjaman" value="{{ old('keterangan_pinjam', $peminjaman->keterangan_peminjaman) }}">
                                 <div class="form-group">
+                                    
                                 @error('user')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                            </div>
-
-                            @error('divisi')
                                     <div class="alert alert-danger mt-2">
                                         {{ $message }}
                                     </div>
@@ -63,14 +55,11 @@
                                     </div>
                                 @enderror
                             </div>
-
-                            @error('status')
-                                    <div class="alert alert-danger mt-2">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                            <div class="form-group">
+                                <label class="font-weight-bold">Jumlah Pinjam</label>
+                                <input required type="number" class="form-control" id="amount" value="{{ old('amount', $peminjaman->amount)}}"
+                                    name="amount" max="{{$peminjaman->stock->qty+$peminjaman->amount}}">
                             </div>
-
                             <button type="submit" class="btn btn-outline-secondary">UPDATE</button>
                             <button type="reset" class="btn btn-outline-danger">DELETE</button>
 
