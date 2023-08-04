@@ -7,6 +7,7 @@ use App\Exports\pengembaliansExport;
 use App\Models\Laporan;
 use App\Models\Peminjaman;
 use App\Models\User;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
@@ -52,6 +53,8 @@ class PengembalianController extends Controller
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
         // dd($peminjaman);
+        $peminjaman = Peminjaman::findOrFail($request->peminjaman);
+        if(Carbon::parse($request->tanggal_pengembalian)->endOfDay()->isBefore(Carbon::parse($peminjaman->tanggal_peminjaman)->startOfDay())) return redirect()->route('pengembalians.create')->with(['error' => 'Tanggal invalid!']);
         $pengembalian = Pengembalian::create([
             'peminjaman_id' => $request->peminjaman,
             'tanggal_pengembalian' => $request->tanggal_pengembalian,
@@ -92,9 +95,7 @@ class PengembalianController extends Controller
             'divisi',
             'jenis',
         ]);
-
-
-
+        
         $pengembalian->update([
             'ip_address' => $request->ip_address,
             'nama_cabang' => $request->nama_cabang,
