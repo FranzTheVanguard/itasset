@@ -82,7 +82,6 @@ class PengembalianController extends Controller
         /** @var User|null $_user */
         $_user = auth()->user();
         if (!$_user->isAdmin()) abort(403, 'unauthorized');
-        //validate form
         $this->validate($request, [
             'ip_address',
             'nama_cabang',
@@ -96,7 +95,6 @@ class PengembalianController extends Controller
 
 
 
-        //update 
         $pengembalian->update([
             'ip_address' => $request->ip_address,
             'nama_cabang' => $request->nama_cabang,
@@ -111,7 +109,6 @@ class PengembalianController extends Controller
         return redirect()->route('pengembalians.index')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
-    //redirect to index
 
     public function destroy(Pengembalian $pengembalian)
     {
